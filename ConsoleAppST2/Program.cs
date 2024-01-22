@@ -48,6 +48,8 @@ namespace ConsoleAppST2
             {
                 Console.WriteLine("Them khong thanh cong");
             }
+
+            HienThiDanhSachSinhVien(connecionString);
         }
 
         private static bool IsGender(string gender)
