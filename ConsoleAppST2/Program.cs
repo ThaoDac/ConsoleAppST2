@@ -26,7 +26,7 @@ namespace ConsoleAppST2
             Console.Write("Nhap ma sinh vien: ");
             maSV = Console.ReadLine();
 
-            while(!KiemTraKhoaChinh_SinhVien(connecionString, maSV))
+            while (!KiemTraKhoaChinh_SinhVien(connecionString, maSV))
             {
                 Console.Write("Nhap ma lai sinh vien: ");
                 maSV = Console.ReadLine();
