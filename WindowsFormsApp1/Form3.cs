@@ -41,7 +41,7 @@ namespace WindowsFormsApp1
             if (string.IsNullOrEmpty(tb_hoten.Text))
             {
                 //e.Cancel = true;
-                errorProvider.SetError(tb_hoten, "Họ tên sinh viên không được để trống");
+                errorProvider.SetError(tb_hoten, "Họ và tên sinh viên không được để trống");
 
             }
             else
