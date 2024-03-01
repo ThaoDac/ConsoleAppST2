@@ -43,7 +43,7 @@
             this.tb_hoten.Location = new System.Drawing.Point(134, 75);
             this.tb_hoten.Name = "tb_hoten";
             this.tb_hoten.Size = new System.Drawing.Size(385, 26);
-            this.tb_hoten.TabIndex = 0;
+            this.tb_hoten.TabIndex = 2;
             this.tb_hoten.TextChanged += new System.EventHandler(this.tb_hoten_TextChanged);
             this.tb_hoten.Validating += new System.ComponentModel.CancelEventHandler(this.tb_hoten_Validating);
             // 
@@ -80,7 +80,7 @@
             this.tb_sdt.Location = new System.Drawing.Point(134, 140);
             this.tb_sdt.Name = "tb_sdt";
             this.tb_sdt.Size = new System.Drawing.Size(385, 26);
-            this.tb_sdt.TabIndex = 0;
+            this.tb_sdt.TabIndex = 3;
             this.tb_sdt.TextChanged += new System.EventHandler(this.tb_sdt_TextChanged);
             // 
             // label2
@@ -97,7 +97,7 @@
             this.tb_mssv.Location = new System.Drawing.Point(134, 21);
             this.tb_mssv.Name = "tb_mssv";
             this.tb_mssv.Size = new System.Drawing.Size(385, 26);
-            this.tb_mssv.TabIndex = 4;
+            this.tb_mssv.TabIndex = 1;
             // 
             // label3
             // 
