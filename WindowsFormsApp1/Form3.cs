@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Configuration;
+using System.Runtime.InteropServices;
 
 namespace WindowsFormsApp1
 {
@@ -32,7 +33,7 @@ namespace WindowsFormsApp1
             LoadDataToGridView();
         }
 
-        private void LoadDataToGridView()
+        private void LoadDataToGridView(string filter = "")
         {
             string queryStr = "SELECT_tblSINHVIEN";
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -47,6 +48,10 @@ namespace WindowsFormsApp1
                         if (dtSINHVIEN.Rows.Count > 0)
                         {
                             dvSINHVIEN = dtSINHVIEN.DefaultView;
+                            if (filter != null)
+                            {
+                                dvSINHVIEN.RowFilter = filter;
+                            }
                             dgv_dssv.AutoGenerateColumns = false;
                             dgv_dssv.DataSource = dvSINHVIEN;
                         }
@@ -249,6 +254,116 @@ namespace WindowsFormsApp1
             {
                 rb_nu.Checked = true;
             }
+        }
+
+        private void btn_xoa_Click(object sender, EventArgs e)
+        {
+            int index = dgv_dssv.CurrentRow.Index;
+            string masv = dvSINHVIEN[index]["sMaSV"].ToString();
+
+            try
+            {
+                //Kiem tra rang buoc giua cac bang du lieu
+                KiemTraRangBuoc_BangDiem(masv);
+
+                //neu khong co rang buoc thi moi cho xoa
+                DialogResult dialogResult = MessageBox.Show("Co muon xoa ma sinh vien " + masv + " khong?",
+                    "Canh bao", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if(dialogResult == DialogResult.Yes)
+                {
+                    using (SqlConnection conn = new SqlConnection(connectionString))
+                    {
+                        using (SqlDataAdapter adapter = new SqlDataAdapter())
+                        {
+                            //lay danh sach sv vao Datatable
+                            adapter.SelectCommand = new SqlCommand("SELECT * FROM tblSINHVIEN", conn);
+                            DataTable dtSINHVIEN = new DataTable("tblSINHVIEN");
+                            adapter.Fill(dtSINHVIEN);
+
+                            //add cac datatable vao dataset
+                            DataSet ds = new DataSet();
+                            ds.Tables.Add(dtSINHVIEN);
+
+                            //tim masv can xoa
+                            dtSINHVIEN.PrimaryKey = new DataColumn[] { dtSINHVIEN.Columns["sMaSV"] };
+                            DataRow dataRow = dtSINHVIEN.Rows.Find(masv);
+                            dataRow.Delete();
+
+                            //xoa du lieu trong DB
+                            using (SqlCommand cmd = conn.CreateCommand())
+                            {
+                                cmd.CommandText = "Delete_tblSINHVIEN";
+                                cmd.CommandType = CommandType.StoredProcedure;
+                                cmd.Parameters.AddWithValue("@masv", masv);
+
+                                adapter.DeleteCommand = cmd;
+                                adapter.Update(ds, "tblSINHVIEN");
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    return;
+                }
+
+                
+            }
+            catch (Exception ex)
+            {
+                string error = ex.Message;
+                if (error.Contains(masv))
+                {
+                    MessageBox.Show("Ma sinh vien " + masv + " da phat sinh diem");
+                }
+                else if (error.Contains("40"))
+                {
+                    MessageBox.Show("Loi ket noi SQL");
+                }
+                else
+                {
+                    MessageBox.Show("Da co loi xay ra");
+                }
+            }
+            
+            LoadDataToGridView();
+        }
+
+        private void KiemTraRangBuoc_BangDiem (string masv)
+        {
+            //kiem tra masv co ton tai tai bang Diem
+            using(SqlConnection conn = new SqlConnection (connectionString))
+            {
+                using(SqlCommand cmd = conn.CreateCommand ())
+                {
+                    cmd.CommandText = "KiemTraMaSV_BangDiem";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@masv", masv);
+                    conn.Open ();
+                    bool i = cmd.ExecuteScalar() != null; 
+                    conn.Close ();
+
+                    if(i)
+                    {
+                        throw new Exception("Ma sinh vien " + masv + " da co phat sinh diem");
+                    }
+                }
+            }
+        }
+
+        private void btn_timkiem_Click(object sender, EventArgs e)
+        {
+            string filter = "sMaSV IS NOT NULL";
+            if(tb_mssv.Text != null)
+            {
+                filter += string.Format(" AND sMaSV LIKE '%{0}%'", tb_mssv.Text);
+            }
+            //if (!string.IsNullOrEmpty(dt_ngaySinh.Value.ToString()))
+            //{
+            //    filter += string.Format(" AND dNgaySinh LIKE '%{0}%'", dt_ngaySinh.Value.ToString());
+            //}
+            //..cac truong du lieu khac tuong ung voi cac control
+            LoadDataToGridView(filter);
         }
     }
 }

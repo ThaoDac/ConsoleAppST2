@@ -42,6 +42,8 @@
             this.dgv_dssv = new System.Windows.Forms.DataGridView();
             this.masv = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ngaysinh = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btn_xoa = new System.Windows.Forms.Button();
+            this.btn_timkiem = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_dssv)).BeginInit();
@@ -50,7 +52,7 @@
             // btn_them
             // 
             this.btn_them.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_them.Location = new System.Drawing.Point(680, 35);
+            this.btn_them.Location = new System.Drawing.Point(680, 22);
             this.btn_them.Name = "btn_them";
             this.btn_them.Size = new System.Drawing.Size(120, 51);
             this.btn_them.TabIndex = 2;
@@ -135,7 +137,7 @@
             // btn_sua
             // 
             this.btn_sua.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_sua.Location = new System.Drawing.Point(680, 100);
+            this.btn_sua.Location = new System.Drawing.Point(680, 79);
             this.btn_sua.Name = "btn_sua";
             this.btn_sua.Size = new System.Drawing.Size(120, 51);
             this.btn_sua.TabIndex = 2;
@@ -145,6 +147,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btn_timkiem);
+            this.groupBox1.Controls.Add(this.btn_xoa);
             this.groupBox1.Controls.Add(this.tb_mssv);
             this.groupBox1.Controls.Add(this.rb_nu);
             this.groupBox1.Controls.Add(this.label3);
@@ -157,7 +161,7 @@
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(823, 241);
+            this.groupBox1.Size = new System.Drawing.Size(823, 254);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Thông tin sinh viên";
@@ -166,7 +170,7 @@
             // 
             this.groupBox2.Controls.Add(this.dgv_dssv);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(12, 260);
+            this.groupBox2.Location = new System.Drawing.Point(12, 272);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(823, 394);
             this.groupBox2.TabIndex = 8;
@@ -203,6 +207,28 @@
             this.ngaysinh.Name = "ngaysinh";
             this.ngaysinh.Width = 150;
             // 
+            // btn_xoa
+            // 
+            this.btn_xoa.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_xoa.Location = new System.Drawing.Point(680, 136);
+            this.btn_xoa.Name = "btn_xoa";
+            this.btn_xoa.Size = new System.Drawing.Size(120, 51);
+            this.btn_xoa.TabIndex = 7;
+            this.btn_xoa.Text = "Xóa";
+            this.btn_xoa.UseVisualStyleBackColor = true;
+            this.btn_xoa.Click += new System.EventHandler(this.btn_xoa_Click);
+            // 
+            // btn_timkiem
+            // 
+            this.btn_timkiem.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_timkiem.Location = new System.Drawing.Point(680, 193);
+            this.btn_timkiem.Name = "btn_timkiem";
+            this.btn_timkiem.Size = new System.Drawing.Size(120, 51);
+            this.btn_timkiem.TabIndex = 8;
+            this.btn_timkiem.Text = "Tìm kiếm";
+            this.btn_timkiem.UseVisualStyleBackColor = true;
+            this.btn_timkiem.Click += new System.EventHandler(this.btn_timkiem_Click);
+            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -237,5 +263,7 @@
         private System.Windows.Forms.DataGridView dgv_dssv;
         private System.Windows.Forms.DataGridViewTextBoxColumn masv;
         private System.Windows.Forms.DataGridViewTextBoxColumn ngaysinh;
+        private System.Windows.Forms.Button btn_xoa;
+        private System.Windows.Forms.Button btn_timkiem;
     }
 }
